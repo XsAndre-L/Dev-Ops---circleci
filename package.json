@@ -1,0 +1,30 @@
+{
+  "name": "dev-ops---circleci",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "frontend:install": "cd Ecommerse-Frontend--Angular/ && npm install -f",
+    "frontend:start": "cd Ecommerse-Frontend--Angular/ && npm run start",
+    "frontend:build": "cd Ecommerse-Frontend--Angular/ && npm run build",
+    "frontend:test": "cd Ecommerse-Frontend--Angular/ && npm run test",
+    "frontend:e2e": "cd Ecommerse-Frontend--Angular/ && npm run e2e",
+    "frontend:lint": "cd Ecommerse-Frontend--Angular/ && npm run lint",
+    "frontend:deploy": "cd Ecommerse-Frontend--Angular/ && npm run deploy",
+    "api:install": "cd Storefront-Backend---Express/ && npm install .",
+    "api:build": "cd Storefront-Backend---Express/ && npm run build",
+    "api:start": "cd Storefront-Backend---Express/ && npm run startDev",
+    "api:deploy": "cd Storefront-Backend---Express/ && npm run deploy",
+    "deploy": "npm run api:deploy && npm run frontend:deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XsAndre-L/Dev-Ops---circleci.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XsAndre-L/Dev-Ops---circleci/issues"
+  },
+  "homepage": "https://github.com/XsAndre-L/Dev-Ops---circleci#readme"
+}
