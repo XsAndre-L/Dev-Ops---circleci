@@ -1,0 +1,6 @@
+[submodule "Ecommerse-Frontend---Angular"]
+	path = Ecommerse-Frontend---Angular
+	url = https://github.com/XsAndre-L/Ecommerse-Frontend---Angular.git
+[submodule "Storefront-Backend---Express"]
+	path = Storefront-Backend---Express
+	url = https://github.com/XsAndre-L/Storefront-Backend---Express.git
