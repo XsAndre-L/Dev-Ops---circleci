@@ -13,6 +13,7 @@
     "frontend:deploy": "cd Ecommerse-Frontend--Angular/ && npm run deploy",
     "api:install": "cd Storefront-Backend---Express/ && npm install .",
     "api:build": "cd Storefront-Backend---Express/ && npm run build",
+    "api:test": "cd Storefront-Backend---Express/ && npm run test",
     "api:start": "cd Storefront-Backend---Express/ && npm run startDev",
     "api:deploy": "cd Storefront-Backend---Express/ && npm run deploy",
     "deploy": "npm run api:deploy && npm run frontend:deploy"

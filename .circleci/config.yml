@@ -6,6 +6,25 @@ orbs:
   aws-cli: circleci/aws-cli@3.1.1
   # different jobs are calles later in the workflows sections
 jobs:
+  test:
+    docker:
+      - image: "cimg/node:16.15"
+    steps:
+
+      - node/install:
+          node-version: "16.15"
+
+      # Checkout project with submodules
+      - checkout
+      - run: git submodule sync --recursive
+      - run: git submodule update --recursive --init
+      - run:
+          name: Run Tests
+          command: |
+          echo "Running Tests on API"
+          npm run api:test
+          echo "Running Tests on Front-End"
+          npm run frontend:test
   build:
     docker:
       # the base image can run most needed actions with orbs
@@ -82,10 +101,13 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
           type: approval
           requires:
             - build
-      - deploy:
+      - test:
           requires:
             - hold
+      - deploy:
+          requires:
+            - test
