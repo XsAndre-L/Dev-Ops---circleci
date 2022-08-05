@@ -9,6 +9,8 @@ jobs:
   test:
     docker:
       - image: "cimg/node:16.15"
+    environment:
+      - NODE_ENV: development
     steps:
       - node/install:
           node-version: "16.15"
@@ -17,6 +19,16 @@ jobs:
       - checkout
       - run: git submodule sync --recursive
       - run: git submodule update --recursive --init
+      - run:
+          name: Install Front-End Dependencies
+          command: |
+            export NPM_USE_PRODUCTION=false
+            npm run frontend:install
+      - run:
+          name: Install API Dependencies
+          command: |
+            export NPM_USE_PRODUCTION=false
+            npm run api:install
       - run:
           name: Run Tests
           command: |
@@ -28,8 +40,7 @@ jobs:
     docker:
       # the base image can run most needed actions with orbs
       - image: "cimg/node:16.15"
-    environment:
-      - NODE_ENV: development
+
     steps:
       # install node and checkout code
       - node/install:
@@ -46,14 +57,12 @@ jobs:
             echo $(node --version)
             echo "NPM --version" 
             echo $(npm --version)
-            export NPM_USE_PRODUCTION=false
             npm run frontend:install
       # TODO: Install dependencies in the the backend API
       - run:
           name: Install API Dependencies
           command: |
             echo "TODO: Install dependencies in the the backend API  "
-            export NPM_USE_PRODUCTION=false
             npm run api:install
       # TODO: Lint the frontend
       - run:
