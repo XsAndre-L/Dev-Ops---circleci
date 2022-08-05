@@ -15,6 +15,8 @@ jobs:
       - node/install:
           node-version: "16.15"
       - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
       # Use root level package.json to install dependencies in the frontend app
       - run:
           name: Install Front-End Dependencies
