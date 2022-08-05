@@ -51,6 +51,7 @@ jobs:
           name: Install API Dependencies
           command: |
             echo "TODO: Install dependencies in the the backend API  "
+            export NPM_USE_PRODUCTION=false
             npm run api:install
       # TODO: Lint the frontend
       - run:
