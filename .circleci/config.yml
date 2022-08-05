@@ -44,6 +44,7 @@ jobs:
             echo $(node --version)
             echo "NPM --version" 
             echo $(npm --version)
+            export NPM_USE_PRODUCTION=false
             npm run frontend:install
       # TODO: Install dependencies in the the backend API
       - run:
