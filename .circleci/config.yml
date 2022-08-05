@@ -21,9 +21,7 @@ jobs:
       - run:
           name: Run Tests
           command: |
-          echo "Running Tests on API"
           npm run api:test
-          echo "Running Tests on Front-End"
           npm run frontend:test
   build:
     docker:
