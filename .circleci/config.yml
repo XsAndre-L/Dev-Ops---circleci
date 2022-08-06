@@ -2,14 +2,14 @@ version: 2.1
 orbs:
   # orgs contain basc recipes and reproducible actions (install node, aws, etc.)
   node: circleci/node@5.0.2
-  browser-tools: circleci/browser-tools@1.1.0
+  browser-tools: circleci/browser-tools
   eb: circleci/aws-elastic-beanstalk@2.0.1
   aws-cli: circleci/aws-cli@3.1.1
   # different jobs are calles later in the workflows sections
 jobs:
   test:
     docker:
-      - image: "circleci/node:9.5-browsers"
+      - image: "cimg/node:16.13.1-browsers"
     environment:
       - NODE_ENV: development
     steps:
