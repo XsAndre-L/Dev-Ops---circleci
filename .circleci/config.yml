@@ -91,7 +91,7 @@ jobs:
   # deploy step will run only after manual approval
   deploy:
     docker:
-      - image: "cimg/base:stable"
+      - image: "cimg/node:16.15"
       # more setup needed for aws, node, elastic beanstalk
     steps:
       - node/install:
@@ -99,6 +99,13 @@ jobs:
       - eb/setup
       - aws-cli/setup
       - checkout
+      - run:
+          name: Installing deployment dependencies
+          working_directory: /
+          command: |
+            sudo apt-get -y -qq update
+            sudo apt-get install python3-pip python3-dev build-essential
+            sudo pip3 install awsebcli
       - run: git submodule sync --recursive
       - run: git submodule update --recursive --init
       - run:
