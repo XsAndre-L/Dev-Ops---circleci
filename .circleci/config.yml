@@ -107,6 +107,9 @@ workflows:
   Dev-Ops--CircleCi:
     jobs:
       - build
+      - test:
+          requires:
+            - build
       - hold:
           filters:
             branches:
@@ -114,10 +117,7 @@ workflows:
                 - main
           type: approval
           requires:
-            - build
-      - test:
-          requires:
-            - hold
+            - test
       - deploy:
           requires:
             - test
