@@ -120,4 +120,4 @@ workflows:
             - test
       - deploy:
           requires:
-            - test
+            - hold
