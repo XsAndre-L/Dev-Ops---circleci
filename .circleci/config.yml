@@ -110,6 +110,7 @@ jobs:
             npm run api:install
             npm run frontend:build
             npm run api:build
+            eb use storefront-backend---express-dev
             npm run deploy
 
 workflows:
