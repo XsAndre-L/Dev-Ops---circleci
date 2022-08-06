@@ -96,18 +96,18 @@ jobs:
     steps:
       - node/install:
           node-version: "16.15"
-      - eb/setup
-      - aws-cli/setup
       - checkout
-      - run:
-          name: Installing deployment dependencies
-          working_directory: /
-          command: |
-            sudo apt-get -y -qq update
-            sudo apt-get install python3-pip python3-dev build-essential
-            sudo pip3 install awsebcli
       - run: git submodule sync --recursive
       - run: git submodule update --recursive --init
+      - eb/setup
+      - aws-cli/setup
+      # - run:
+      #     name: Installing deployment dependencies
+      #     working_directory: /
+      #     command: |
+      #       sudo apt-get -y -qq update
+      #       sudo apt-get install python3-pip python3-dev build-essential
+      #       sudo pip3 install awsebcli
       - run:
           name: Deploy App
           # TODO: Install, build, deploy in both apps
