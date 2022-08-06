@@ -22,12 +22,10 @@ jobs:
       - run:
           name: Install Front-End Dependencies
           command: |
-            export NPM_USE_PRODUCTION=false
             npm run frontend:install
       - run:
           name: Install API Dependencies
           command: |
-            export NPM_USE_PRODUCTION=false
             npm run api:install
       - run:
           name: Run Tests
