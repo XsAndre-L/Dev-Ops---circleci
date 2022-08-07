@@ -10,7 +10,7 @@
     "frontend:test": "cd Ecommerse-Frontend---Angular/ && npm run test",
     "frontend:e2e": "cd Ecommerse-Frontend---Angular/ && npm run e2e",
     "frontend:lint": "cd Ecommerse-Frontend---Angular/ && npm run lint",
-    "frontend:deploy": "cd ../Ecommerse-Frontend--Angular/ && npm run deploy",
+    "frontend:deploy": "cd Ecommerse-Frontend---Angular/ && npm run deploy",
     "api:install": "cd Storefront-Backend---Express/ && npm install",
     "api:build": "cd Storefront-Backend---Express/ && npm run build",
     "api:test": "cd Storefront-Backend---Express/ && npm run test",
