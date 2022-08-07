@@ -96,13 +96,14 @@ jobs:
     steps:
       - node/install:
           node-version: "16.15"
-      - checkout
-          path: '~/Dev-Ops---circleci'
+      - checkout:
+          path: ~/Dev-Ops---circleci
       - run: git submodule sync --recursive
       - run: git submodule update --recursive --init
       - eb/setup
       - aws-cli/setup
-      working_directory: '~/Dev-Ops---circleci/Storefront-Backend---Express'
+      - run: ls
+      working_directory: ~/Dev-Ops---circleci/Storefront-Backend---Express
       # - run:
       #     name: Installing deployment dependencies
       #     working_directory: /
