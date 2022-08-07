@@ -93,6 +93,7 @@ jobs:
     docker:
       - image: "cimg/node:16.15"
       # more setup needed for aws, node, elastic beanstalk
+    working_directory: ~/Dev-Ops---circleci/Storefront-Backend---Express
     steps:
       - node/install:
           node-version: "16.15"
@@ -103,7 +104,6 @@ jobs:
       - eb/setup
       - aws-cli/setup
       - run: ls
-      working_directory: ~/Dev-Ops---circleci/Storefront-Backend---Express
       # - run:
       #     name: Installing deployment dependencies
       #     working_directory: /
