@@ -16,7 +16,7 @@
     "api:test": "cd Storefront-Backend---Express/ && npm run test",
     "api:start": "cd Storefront-Backend---Express/ && npm run startDev",
     "api:deploy": "cd Storefront-Backend---Express/ && npm run deploy",
-    "deploy": "npm run api:deploy && npm run frontend:deploy"
+    "deploy:all": "npm run api:deploy && npm run frontend:deploy"
   },
   "repository": {
     "type": "git",

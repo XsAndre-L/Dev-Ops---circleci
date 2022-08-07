@@ -102,7 +102,7 @@ jobs:
       - run: git submodule update --recursive --init
       - eb/setup
       - aws-cli/setup
-      - run: ls
+
       # - run:
       #     name: Installing deployment dependencies
       #     working_directory: /
@@ -119,8 +119,7 @@ jobs:
             npm run api:install
             npm run frontend:build
             npm run api:build
-            eb use storefront-backend---express-dev
-            npm run deploy
+            npm run deploy:all
 
 workflows:
   Dev-Ops--CircleCi:
