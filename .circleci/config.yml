@@ -1,18 +1,58 @@
 version: 2.1
 orbs:
-  # orgs contain basc recipes and reproducible actions (install node, aws, etc.)
+  # orbs contain basic recipes and reproducible actions (install node, browser-tools, aws-cli, eb-cli)
   node: circleci/node@5.0.2
   browser-tools: circleci/browser-tools@1.2.3
   eb: circleci/aws-elastic-beanstalk@2.0.1
   aws-cli: circleci/aws-cli@3.1.1
-  # different jobs are calles later in the workflows sections
 jobs:
+  # Test if project builds successfully
+  build:
+    docker:
+      - image: "cimg/node:16.15"
+    steps:
+      # install node and checkout code
+      - node/install:
+          node-version: "16.15"
+      # Checkout project with submodules
+      - checkout
+      - run: git submodule sync --recursive
+      - run: git submodule update --recursive --init
+      # Use root level package.json to install dependencies in the frontend app
+      - run:
+          name: Install Front-End Dependencies
+          command: |
+            echo "NODE --version" 
+            echo $(node --version)
+            echo "NPM --version" 
+            echo $(npm --version)
+            npm run frontend:install
+      # Install backend API dependencies
+      - run:
+          name: Install API Dependencies
+          command: |
+            echo "# Install dependencies in the the backend API"
+            npm run api:install
+      # Build front-end app
+      - run:
+          name: Front-End Build
+          command: |
+            echo "# Building front-end"
+            npm run frontend:build
+      # Build the backend API
+      - run:
+          name: API Build
+          command: |
+            echo "# Building backend"
+            npm run api:build
+  # Run tests on the backend and frontend if no backend exists the frontend would fail... no tests rely on backend atm.
   test:
     docker:
       - image: "cimg/node:16.13.1-browsers"
     environment:
       - NODE_ENV: development
     steps:
+      # We install chrome to run front-end tests
       - node/install:
           node-version: "16.15"
       - browser-tools/install-chrome
@@ -38,89 +78,34 @@ jobs:
       - run:
           name: Run Tests
           command: |
-            echo "Running API Tests"
+            echo "# Running API Tests"
             npm run api:test
-            echo "Running Front-End Tests"
+            echo "# Running Front-End Tests"
             export CHROME_BIN=/usr/bin/google-chrome
             npm run frontend:test
-  build:
+  # deploy step will run only after manual approval
+  deploy:
     docker:
-      # the base image can run most needed actions with orbs
       - image: "cimg/node:16.15"
-
     steps:
-      # install node and checkout code
       - node/install:
           node-version: "16.15"
       # Checkout project with submodules
       - checkout
       - run: git submodule sync --recursive
       - run: git submodule update --recursive --init
-      # Use root level package.json to install dependencies in the frontend app
-      - run:
-          name: Install Front-End Dependencies
-          command: |
-            echo "NODE --version" 
-            echo $(node --version)
-            echo "NPM --version" 
-            echo $(npm --version)
-            npm run frontend:install
-      # TODO: Install dependencies in the the backend API
-      - run:
-          name: Install API Dependencies
-          command: |
-            echo "TODO: Install dependencies in the the backend API  "
-            npm run api:install
-      # TODO: Lint the frontend
-      - run:
-          name: Front-End Lint
-          command: |
-            echo "TODO: Lint the frontend"
-      # TODO: Build the frontend app
-      - run:
-          name: Front-End Build
-          command: |
-            echo "TODO: Build the frontend app"
-            npm run frontend:build
-      # TODO: Build the backend API
-      - run:
-          name: API Build
-          command: |
-            echo "TODO: Build the backend API"
-            npm run api:build
-  # deploy step will run only after manual approval
-  deploy:
-    docker:
-      - image: "cimg/node:16.15"
-      # more setup needed for aws, node, elastic beanstalk
-
-    steps:
-      - node/install:
-          node-version: "16.15"
-      - checkout
-      - run: git submodule sync --recursive
-      - run: git submodule update --recursive --init
       - eb/setup
       - aws-cli/setup
-
-      # - run:
-      #     name: Installing deployment dependencies
-      #     working_directory: /
-      #     command: |
-      #       sudo apt-get -y -qq update
-      #       sudo apt-get install python3-pip python3-dev build-essential
-      #       sudo pip3 install awsebcli
       - run:
           name: Deploy App
-          # TODO: Install, build, deploy in both apps
+          # Install, Build and finaly Deploy, First: API , Second: Front-End
           command: |
-            echo "# TODO: Install, build, deploy in both apps"
+            echo "# Install, build, deploy in both apps"
             npm run frontend:install
             npm run api:install
             npm run frontend:build
             npm run api:build
             npm run deploy:all
-
 workflows:
   Dev-Ops--CircleCi:
     jobs:
@@ -128,6 +113,7 @@ workflows:
       - test:
           requires:
             - build
+      # Hold after Tests Succeed for manual approval
       - hold:
           filters:
             branches:
@@ -136,6 +122,7 @@ workflows:
           type: approval
           requires:
             - test
+      # Deploy to aws, EB environment (Backend API) , S3 Buckit (Front-End)
       - deploy:
           requires:
             - hold
