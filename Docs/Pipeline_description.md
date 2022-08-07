@@ -1,15 +1,8 @@
 # Pipeline Process
 
-## Test Build
-
-## Run Unit Tests
-
-Backend Tests
-Front-End Tests
-
 ## Pipeline Diagram
 
-![image](..\Docs\screenshots\Diagrams\CircleCi_Pipeline.png)
+![image](../Docs/screenshots/Diagrams/CircleCi_Pipeline.png)
 
 ### Workflow
 

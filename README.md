@@ -16,23 +16,23 @@ Working app:
 
 ### S3 Buckit ( Front-End )
 
-![image](Docs\screenshots\Service_S3.png)
+![image](/Docs/screenshots/Service_S3.png)
 
 ### EB Environment ( Backend )
 
-![image](Docs\screenshots\EB_environment.png)
-![image](Docs\screenshots\EC2_env_variables.png)
+![image](Docs/screenshots/EB_environment.png)
+![image](Docs/screenshots/EC2_env_variables.png)
 
 ### RDS ( Database )
 
-![image](Docs\screenshots\Service_RDS.png)
+![image](Docs/screenshots/Service_RDS.png)
 
 ---
 
 ## Configuring Continuous Integration Pipeline with Github
 
 Successfull pipeline
-![image](Docs\screenshots\CircleCi_Pipeline.png)
+![image](Docs/screenshots/CircleCi_Pipeline.png)
 
 Build Stage:
 ![image](/Docs/screenshots/CI_BUILD.png)
